@@ -1,0 +1,109 @@
+#include <iostream>
+using namespace std; 
+
+/*Ingresar la cantidad de pupusas que los clientes desean, si quiere que sean de arroz o de maíz, 
+si las quieren con Coca-Cola o no, y de que ingredientes las quieren, que permita agregarlas a las lista y mostrar
+las ordenes. Este sería el ejercicio opcional en lugar del 7*/
+
+//Declaracion de funcion agregarpedido();
+void agregarpedido();
+
+//Estructuras 
+struct Pedidos{
+    int cantidad; 
+    char arroz_maiz[50]; 
+    char Relleno[50];
+    char coca_cola[5];
+}; typedef struct Pedidos Ordenes; 
+
+struct nodo{
+    Pedidos dato; 
+    nodo *sig; 
+}; nodo *pInicio; 
+
+//Funciones 
+Pedidos insertarpedido(){
+    Ordenes dato;
+
+    cout << endl; 
+    cout << "Ingrese la cantidad de pupusas que desea ordenar: "; cin >> dato.cantidad; 
+    cin.ignore();
+    cout << "Arroz o maiz: "; cin.getline(dato.arroz_maiz, 50); 
+
+    cout << "Relleno: "; cin.getline(dato.Relleno, 50); 
+
+    cout << "Desea agregar una coca cola (si/no): "; cin.getline(dato.coca_cola, 5); 
+
+    return dato;
+}
+
+
+void insInicio(Ordenes orden){
+    nodo *nuevo = new nodo(); 
+
+    nuevo -> dato = orden; 
+    nuevo -> sig = pInicio; 
+    pInicio = nuevo; 
+
+}; 
+
+void mostrarorden(Ordenes orden){
+    cout << endl;
+    cout << "ORDEN GUARDADA" << endl; 
+    if(orden.cantidad == 1){
+        cout << orden.cantidad << " pupusa" << endl; 
+    } else {
+        cout << orden.cantidad << " pupusas" << endl; 
+    }
+    cout << "Masa: " << orden.arroz_maiz << endl;
+    cout << "Relleno: " <<orden.Relleno << endl;
+    cout << "Gaseosa: "<< orden.coca_cola << endl; 
+
+}
+
+void mostrarordenes(nodo *pInicio)
+{
+    nodo *saltarin = pInicio; 
+
+    while(saltarin != NULL){
+        mostrarorden(saltarin -> dato); 
+        saltarin = saltarin -> sig; 
+    }
+}
+
+//Funcion principal
+int main(void){ 
+    cout << endl; 
+    pInicio == NULL;
+    Ordenes pedido;
+    int respuesta; 
+
+    cout << "LISTA DE PEDIDOS PUPUSERIA LA BENDICION" << endl; 
+    cout << "Ingrese sus pedidos aqui" << endl; 
+
+    pedido = insertarpedido(); 
+    insInicio(pedido);
+
+    agregarpedido(); 
+
+    cout << endl; 
+    return 0; 
+}
+
+//Funcion agregarpedido()
+void agregarpedido(){
+    Ordenes Adicion;  int respuesta;
+
+    cout << "Desea agregar otro tipo de orden a su pedido, presione 1 si es un si o 2 si es un no: "; cin >> respuesta; 
+
+    if (respuesta == 1){
+        Adicion = insertarpedido();
+        insInicio(Adicion); 
+        agregarpedido();
+        cout << endl; 
+    }else if (respuesta == 2){
+        mostrarordenes(pInicio); 
+    }  
+}
+
+//Fin//
